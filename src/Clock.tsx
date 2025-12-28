@@ -2,7 +2,6 @@ import React from 'react';
 
 type Props = {
   name: string;
-  hasClock: boolean;
 };
 type State = {
   date: Date;
@@ -18,11 +17,16 @@ export class Clock extends React.Component<Props, State> {
       const now = new Date();
 
       this.setState({ date: now });
-      if (this.props.hasClock) {
-        // eslint-disable-next-line no-console
-        console.log(now.toUTCString().slice(-12, -4));
-      }
+      // eslint-disable-next-line no-console
+      console.log(now.toUTCString().slice(-12, -4));
     }, 1000);
+  }
+
+  componentDidUpdate(prevProps: Readonly<Props>): void {
+    if (prevProps.name !== this.props.name) {
+      // eslint-disable-next-line no-console
+      console.warn(`Renamed from ${prevProps.name} to ${this.props.name}`);
+    }
   }
 
   componentWillUnmount(): void {

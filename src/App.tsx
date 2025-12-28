@@ -39,20 +39,6 @@ export class App extends React.Component<Props, State> {
     }, 3300);
   }
 
-  componentDidUpdate(
-    prevProps: Readonly<Props>,
-    prevState: Readonly<State>,
-  ): void {
-    if (prevState.clockName !== this.state.clockName) {
-      if (this.state.hasClock === true) {
-        // eslint-disable-next-line no-console
-        console.warn(
-          `Renamed from ${prevState.clockName} to ${this.state.clockName}`,
-        );
-      }
-    }
-  }
-
   // this code stops the timer
   componentWillUnmount(): void {
     window.clearInterval(this.timerId);
@@ -65,9 +51,7 @@ export class App extends React.Component<Props, State> {
       <div className="App">
         <h1>React clock</h1>
 
-        {this.state.hasClock && (
-          <Clock name={this.state.clockName} hasClock={this.state.hasClock} />
-        )}
+        {this.state.hasClock && <Clock name={this.state.clockName} />}
       </div>
     );
   }
